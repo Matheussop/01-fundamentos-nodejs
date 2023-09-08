@@ -1,5 +1,6 @@
 import http from 'node:http'
 import { json } from './middlewares/json.js'
+import { Database } from './database.js'
 
 const database = new Database()
 
@@ -23,11 +24,11 @@ const server = http.createServer(async (req, res) => {
       name,
       email,
     }
-
+    database.insert('users', user)
   }
-  database.insert('users', user)
 
-  return res.writeHead(404).end()
+
+  return res.writeHead(201).end()
 })
 
 server.listen(3333)
